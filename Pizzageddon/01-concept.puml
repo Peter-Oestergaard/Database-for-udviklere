@@ -1,0 +1,95 @@
+@startchen Pizzageddon
+
+entity Pizza {
+    Name
+    Surcharge
+    LeadTimeExtension
+}
+
+entity Ingredient {
+    Description
+}
+
+entity AddOnIngredient {
+    Description
+    Surcharge
+    LeadTimeExtension
+}
+
+entity Order {
+    Id
+    Crust
+    Size
+}
+
+entity BasePrice {
+    Crust
+    Size
+    Price
+}
+
+entity LeadTime {
+    Crust
+    Size
+    Time
+}
+
+entity Tag {
+    Description
+}
+
+entity Allergen {
+    Description
+}
+
+relationship IsMadeWith {
+
+}
+
+Pizza -- IsMadeWith
+IsMadeWith -- Ingredient
+
+relationship Costs {
+
+}
+
+Pizza -- Costs
+Costs -- BasePrice
+
+relationship TakesToMake {
+
+}
+
+Pizza -- TakesToMake
+TakesToMake -- LeadTime
+
+relationship Requests {
+
+}
+
+Order -- Requests
+Requests -- Pizza
+Requests -- AddOnIngredient
+
+relationship Excludes {
+
+}
+
+Order -- Excludes
+Excludes -- Ingredient
+
+relationship MayContain {
+
+}
+
+Pizza -- MayContain
+MayContain -- Allergen
+
+relationship Has {
+
+}
+
+Pizza -- Has
+Has -- Tag
+
+@endchen

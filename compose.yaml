@@ -1,0 +1,16 @@
+services:
+  chartdb:
+    image: ghcr.io/chartdb/chartdb:1.15.1
+    container_name: chartdb
+    ports:
+      - 5123:80
+  kroki:
+    image: docker.io/yuzutech/kroki:0.28.0
+    container_name: kroki
+    ports:
+      - 8000:8000
+  plantuml:
+    image: docker.io/plantuml/plantuml-server:jetty
+    container_name: plantuml
+    ports:
+      - 8100:8080
