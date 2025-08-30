@@ -1,0 +1,99 @@
+@startchen Pizzageddon
+
+entity Order {
+    Id <<key>>
+}
+
+entity OrderLine {
+    Id <<key>>
+    Quantity
+}
+
+relationship Contains {
+
+}
+
+Order =1= Contains
+Contains =N= OrderLine
+
+relationship Requests {
+
+}
+
+entity Crust {
+    Type <<key>>
+    Size <<key>>
+    Price
+    LeadTime
+}
+
+entity Pizza {
+    Name <<key>>
+    Surcharge
+    LeadTimeExtension
+}
+
+entity AddOnIngredient {
+    Description <<key>>
+    Surcharge
+    LeadTimeExtension
+}
+
+entity Ingredient {
+    Description <<key>>
+}
+
+OrderLine =N= Requests
+Requests -1- Crust
+Requests -1- Pizza
+Requests -N- AddOnIngredient
+Requests -N- Ingredient
+
+entity Tag {
+    Description <<key>>
+}
+
+entity Allergen {
+    Description <<key>>
+}
+
+relationship CrustHas {
+
+}
+
+Crust -N- CrustHas
+CrustHas -N- Tag
+
+relationship IngredientHas {
+
+}
+
+Ingredient -N- IngredientHas
+IngredientHas -N- Tag
+
+relationship IsMadeWith {
+
+}
+
+Pizza -N- IsMadeWith
+IsMadeWith =N= Ingredient
+
+
+relationship CrustMayContain {
+
+}
+
+Crust -N- CrustMayContain
+CrustMayContain -N- Allergen
+
+relationship IngredientMayContain {
+
+}
+
+Ingredient -N- IngredientMayContain
+IngredientMayContain -N- Allergen
+
+Ingredient ->- AddOnIngredient
+
+
+@endchen

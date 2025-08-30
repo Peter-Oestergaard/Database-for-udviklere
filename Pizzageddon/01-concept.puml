@@ -1,13 +1,35 @@
 @startchen Pizzageddon
 
+entity Order {
+    Id
+}
+
+entity OrderLine {
+    Quantity
+}
+
+relationship Contains {
+
+}
+
+Order -- Contains
+Contains -- OrderLine
+
+relationship Requests {
+
+}
+
+entity Crust {
+    Type
+    Size
+    Price
+    LeadTime
+}
+
 entity Pizza {
     Name
     Surcharge
     LeadTimeExtension
-}
-
-entity Ingredient {
-    Description
 }
 
 entity AddOnIngredient {
@@ -16,23 +38,15 @@ entity AddOnIngredient {
     LeadTimeExtension
 }
 
-entity Order {
-    Id
-    Crust
-    Size
+entity Ingredient {
+    Description
 }
 
-entity BasePrice {
-    Crust
-    Size
-    Price
-}
-
-entity LeadTime {
-    Crust
-    Size
-    Time
-}
+OrderLine -- Requests
+Requests -- Crust
+Requests -- Pizza
+Requests -- AddOnIngredient
+Requests -ToBeExcluded- Ingredient
 
 entity Tag {
     Description
@@ -42,6 +56,20 @@ entity Allergen {
     Description
 }
 
+relationship CrustHas {
+
+}
+
+Crust -- CrustHas
+CrustHas -- Tag
+
+relationship IngredientHas {
+
+}
+
+Ingredient -- IngredientHas
+IngredientHas -- Tag
+
 relationship IsMadeWith {
 
 }
@@ -49,47 +77,22 @@ relationship IsMadeWith {
 Pizza -- IsMadeWith
 IsMadeWith -- Ingredient
 
-relationship Costs {
+
+relationship CrustMayContain {
 
 }
 
-Pizza -- Costs
-Costs -- BasePrice
+Crust -- CrustMayContain
+CrustMayContain -- Allergen
 
-relationship TakesToMake {
-
-}
-
-Pizza -- TakesToMake
-TakesToMake -- LeadTime
-
-relationship Requests {
+relationship IngredientMayContain {
 
 }
 
-Order -- Requests
-Requests -- Pizza
-Requests -- AddOnIngredient
+Ingredient -- IngredientMayContain
+IngredientMayContain -- Allergen
 
-relationship Excludes {
+Ingredient ->- AddOnIngredient
 
-}
-
-Order -- Excludes
-Excludes -- Ingredient
-
-relationship MayContain {
-
-}
-
-Pizza -- MayContain
-MayContain -- Allergen
-
-relationship Has {
-
-}
-
-Pizza -- Has
-Has -- Tag
 
 @endchen
