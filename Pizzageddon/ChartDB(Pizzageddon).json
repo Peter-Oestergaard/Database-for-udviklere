@@ -1,0 +1,306 @@
+{
+  "id": "0",
+  "name": "Pizzageddon",
+  "createdAt": "2025-08-31T12:49:10.496Z",
+  "updatedAt": "2025-08-31T12:49:54.867Z",
+  "databaseType": "postgresql",
+  "tables": [
+    {
+      "id": "1",
+      "name": "users",
+      "schema": "",
+      "order": 0,
+      "fields": [
+        {
+          "id": "2",
+          "name": "id",
+          "type": {
+            "name": "integer",
+            "id": "integer",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": true,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "3",
+          "name": "name",
+          "type": {
+            "name": "varchar",
+            "id": "varchar",
+            "fieldAttributes": {
+              "hasCharMaxLength": true
+            },
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "4",
+          "name": "email",
+          "type": {
+            "name": "varchar",
+            "id": "varchar",
+            "fieldAttributes": {
+              "hasCharMaxLength": true
+            },
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        }
+      ],
+      "indexes": [
+        {
+          "id": "5",
+          "name": "pk_users_id",
+          "fieldIds": [
+            "2"
+          ],
+          "unique": true,
+          "isPrimaryKey": true,
+          "createdAt": 1756644560843
+        }
+      ],
+      "x": 100,
+      "y": 100,
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1756644560843
+    },
+    {
+      "id": "6",
+      "name": "posts",
+      "schema": "",
+      "order": 1,
+      "fields": [
+        {
+          "id": "7",
+          "name": "id",
+          "type": {
+            "name": "integer",
+            "id": "integer",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": true,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "8",
+          "name": "title",
+          "type": {
+            "name": "varchar",
+            "id": "varchar",
+            "fieldAttributes": {
+              "hasCharMaxLength": true
+            },
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "9",
+          "name": "content",
+          "type": {
+            "name": "text",
+            "id": "text",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "10",
+          "name": "user_id",
+          "type": {
+            "name": "integer",
+            "id": "integer",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "11",
+          "name": "created_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        }
+      ],
+      "indexes": [
+        {
+          "id": "12",
+          "name": "pk_posts_id",
+          "fieldIds": [
+            "7"
+          ],
+          "unique": true,
+          "isPrimaryKey": true,
+          "createdAt": 1756644560843
+        }
+      ],
+      "x": 524,
+      "y": 100,
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1756644560843
+    },
+    {
+      "id": "13",
+      "name": "comments",
+      "schema": "",
+      "order": 2,
+      "fields": [
+        {
+          "id": "14",
+          "name": "id",
+          "type": {
+            "name": "integer",
+            "id": "integer",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": true,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "15",
+          "name": "content",
+          "type": {
+            "name": "text",
+            "id": "text",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "16",
+          "name": "post_id",
+          "type": {
+            "name": "integer",
+            "id": "integer",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "17",
+          "name": "user_id",
+          "type": {
+            "name": "integer",
+            "id": "integer",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        },
+        {
+          "id": "18",
+          "name": "created_at",
+          "type": {
+            "name": "timestamp",
+            "id": "timestamp",
+            "usageLevel": 1
+          },
+          "nullable": true,
+          "primaryKey": false,
+          "unique": false,
+          "createdAt": 1756644560843
+        }
+      ],
+      "indexes": [
+        {
+          "id": "19",
+          "name": "pk_comments_id",
+          "fieldIds": [
+            "14"
+          ],
+          "unique": true,
+          "isPrimaryKey": true,
+          "createdAt": 1756644560843
+        }
+      ],
+      "x": 948,
+      "y": 100,
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1756644560843
+    }
+  ],
+  "relationships": [
+    {
+      "id": "20",
+      "name": "posts_user_id_users_id",
+      "sourceSchema": "",
+      "targetSchema": "",
+      "sourceTableId": "6",
+      "targetTableId": "1",
+      "sourceFieldId": "10",
+      "targetFieldId": "2",
+      "sourceCardinality": "many",
+      "targetCardinality": "one",
+      "createdAt": 1756644560843
+    },
+    {
+      "id": "21",
+      "name": "comments_post_id_posts_id",
+      "sourceSchema": "",
+      "targetSchema": "",
+      "sourceTableId": "13",
+      "targetTableId": "6",
+      "sourceFieldId": "16",
+      "targetFieldId": "7",
+      "sourceCardinality": "many",
+      "targetCardinality": "one",
+      "createdAt": 1756644560843
+    },
+    {
+      "id": "22",
+      "name": "comments_user_id_users_id",
+      "sourceSchema": "",
+      "targetSchema": "",
+      "sourceTableId": "13",
+      "targetTableId": "1",
+      "sourceFieldId": "17",
+      "targetFieldId": "2",
+      "sourceCardinality": "many",
+      "targetCardinality": "one",
+      "createdAt": 1756644560843
+    }
+  ],
+  "dependencies": [],
+  "areas": [],
+  "customTypes": []
+}

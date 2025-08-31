@@ -5,7 +5,7 @@ entity Order {
 }
 
 entity OrderLine <<weak>> {
-    LineNumber <<key>>
+    LineNumber
     Quantity
 }
 
@@ -20,16 +20,40 @@ relationship Requests {
 
 }
 
+relationship RequestsAddOns {
+    Quantity
+}
+
 relationship Excludes {
 
 }
 
-entity Crust {
+entity CrustType {
     Type <<key>>
+}
+
+entity CrustSize {
     Size <<key>>
+}
+
+entity Crust {
     Price
     LeadTime
 }
+
+relationship CrustHasSize {
+
+}
+
+relationship CrustIsOfType {
+
+}
+
+Crust =N= CrustHasSize
+CrustHasSize -1- CrustSize
+
+Crust =N= CrustIsOfType
+CrustIsOfType -1- CrustType
 
 entity Pizza {
     Name <<key>>
@@ -49,10 +73,12 @@ entity AddOnIngredient {
 OrderLine =N= Requests
 Requests -1- Crust
 Requests -1- Pizza
-Requests -N- AddOnIngredient
 
-OrderLine -- Excludes
-Excludes -- Ingredient
+OrderLine -N- RequestsAddOns
+RequestsAddOns -N- AddOnIngredient
+
+OrderLine -N- Excludes
+Excludes -N- Ingredient
 
 entity Tag {
     Description <<key>>
@@ -84,12 +110,12 @@ Pizza =N= IsMadeWith
 IsMadeWith -N- Ingredient
 
 
-relationship CrustMayContain {
+relationship CrustTypeMayContain {
 
 }
 
-Crust -N- CrustMayContain
-CrustMayContain -N- Allergen
+CrustType -N- CrustTypeMayContain
+CrustTypeMayContain -N- Allergen
 
 relationship IngredientMayContain {
 
