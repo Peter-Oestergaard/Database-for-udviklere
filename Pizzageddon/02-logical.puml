@@ -4,12 +4,12 @@ entity Order {
     Id <<key>>
 }
 
-entity OrderLine {
-    Id <<key>>
+entity OrderLine <<weak>> {
+    LineNumber <<key>>
     Quantity
 }
 
-relationship Contains {
+relationship Contains <<identifying>> {
 
 }
 
@@ -17,6 +17,10 @@ Order =1= Contains
 Contains =N= OrderLine
 
 relationship Requests {
+
+}
+
+relationship Excludes {
 
 }
 
@@ -33,21 +37,22 @@ entity Pizza {
     LeadTimeExtension
 }
 
-entity AddOnIngredient {
-    Description <<key>>
-    Surcharge
-    LeadTimeExtension
-}
-
 entity Ingredient {
     Description <<key>>
+}
+
+entity AddOnIngredient {
+    Surcharge
+    LeadTimeExtension
 }
 
 OrderLine =N= Requests
 Requests -1- Crust
 Requests -1- Pizza
 Requests -N- AddOnIngredient
-Requests -N- Ingredient
+
+OrderLine -- Excludes
+Excludes -- Ingredient
 
 entity Tag {
     Description <<key>>
@@ -75,8 +80,8 @@ relationship IsMadeWith {
 
 }
 
-Pizza -N- IsMadeWith
-IsMadeWith =N= Ingredient
+Pizza =N= IsMadeWith
+IsMadeWith -N- Ingredient
 
 
 relationship CrustMayContain {
