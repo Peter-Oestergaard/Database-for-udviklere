@@ -75,8 +75,8 @@ CREATE TABLE "CrustAllergens" (
 
 CREATE TABLE "Pizzas" (
     "name" VARCHAR NOT NULL PRIMARY KEY,
-    "surcharge" NUMERIC NOT NULL,
-    "leadTimeExtension" INTERVAL NOT NULL
+    "surcharge" NUMERIC NOT NULL DEFAULT 0,
+    "leadTimeExtension" INTERVAL NOT NULL DEFAULT INTERVAL '0'
 );
 
 CREATE TABLE "PizzaIngredients" (
@@ -112,7 +112,7 @@ CREATE TABLE "ExcludeIngredients" (
 CREATE TABLE "AddOnIngredients" (
     "description" VARCHAR NOT NULL PRIMARY KEY,
     "surcharge" NUMERIC NOT NULL,
-    "leadTimeExtension" INTERVAL NOT NULL,
+    "leadTimeExtension" INTERVAL NOT NULL DEFAULT INTERVAL '0',
     CONSTRAINT "fk_description_Ingredients_description" FOREIGN KEY("description") REFERENCES "Ingredients"("description")
 );
 
