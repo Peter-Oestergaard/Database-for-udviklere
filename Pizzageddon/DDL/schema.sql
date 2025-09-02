@@ -96,8 +96,10 @@ CREATE TABLE "Requests" (
     CONSTRAINT "pk_Requests_orderId_orderLineNumber" PRIMARY KEY ("orderId", "orderLineNumber"),
     CONSTRAINT "fk_OrderLines_orderId_lineNumber" FOREIGN KEY("orderId", "orderLineNumber") REFERENCES "OrderLines"("orderId", "lineNumber"),
     CONSTRAINT "fk_pizzaName_Pizzas_name" FOREIGN KEY("pizzaName") REFERENCES "Pizzas"("name"),
-    CONSTRAINT "fk_crustSize_CrustSizes_size" FOREIGN KEY("crustSize") REFERENCES "CrustSizes"("size"),
-    CONSTRAINT "fk_crustType_CrustTypes_type" FOREIGN KEY("crustType") REFERENCES "CrustTypes"("type")
+    --CONSTRAINT "fk_crustSize_CrustSizes_size" FOREIGN KEY("crustSize") REFERENCES "CrustSizes"("size"),
+    --CONSTRAINT "fk_crustType_CrustTypes_type" FOREIGN KEY("crustType") REFERENCES "CrustTypes"("type")
+    -- During testing I discovered that I could put in an order for a small regular - because my foreign keys were referencing the wrong thing.
+    CONSTRAINT "fk_Crusts_size_type" FOREIGN KEY("crustSize", "crustType") REFERENCES "Crusts"("size", "type")
 );
 
 CREATE TABLE "ExcludeIngredients" (

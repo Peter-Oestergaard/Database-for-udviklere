@@ -110,7 +110,7 @@ INSERT INTO "CrustSizes" ("size") VALUES
 ('Family');
 
 INSERT INTO "Crusts" ("size", "type", "price", "leadTime") VALUES
--- Why don't we provide the regular in small?
+-- Why don't we provide the regular in small? It's a mystery!
 ('Medium', 'Regular', 90, '15 minutes'),
 ('Large', 'Regular', 110, '20 minutes'),
 ('Family', 'Regular', 200, '30 minutes'),
@@ -122,7 +122,7 @@ INSERT INTO "Crusts" ("size", "type", "price", "leadTime") VALUES
 INSERT INTO "CrustAllergens" ("crustType", "allergenDescription") VALUES
 ('Deep pan', 'Gluten');
 
--- Before we can let customers make pizza requests we still need to allow them
+-- Before we can let customers make pizza requests we also need to allow them
 -- to include extra toppings
 INSERT INTO "AddOnIngredients" ("description", "surcharge", "leadTimeExtension") VALUES
 ('Peanuts', 4, DEFAULT),
