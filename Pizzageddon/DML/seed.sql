@@ -53,6 +53,7 @@ INSERT INTO "IngredientTags" ("ingredientDescription", "tagDescription") VALUES
 ('Sour cream dressing', 'Vegetarian'),
 ('Tomato sauce', 'Vegan'),
 ('Garlic', 'Vegan'),
+('Peanuts', 'Vegan'),
 ('Pineapple', 'Vegan');
 
 -- We also need the allergens - yay!

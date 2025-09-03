@@ -83,4 +83,28 @@ JOIN "Crusts" c ON r."crustSize" = c."size" AND r."crustType" = c."type"
 LEFT JOIN "RequestAddOns" rao ON o."id" = rao."orderId" AND ol."lineNumber" = rao."orderLineNumber"
 LEFT JOIN "AddOnIngredients" aoi ON rao."addOnIngredientDescription" = aoi."description"
 GROUP BY o."id", c."price", c."leadTime"
-ORDER BY o."id" ASC
+ORDER BY o."id" ASC;
+
+-- All vegetarian pizzas
+SELECT DISTINCT p."name" AS "Vegetarian pizzas" FROM "Pizzas" p
+JOIN "PizzaIngredients" i ON p."name" = i."pizzaName"
+LEFT JOIN "IngredientTags" it ON i."ingredientDescription" = it."ingredientDescription"
+WHERE NOT EXISTS (
+    SELECT 1 FROM "PizzaIngredients" i2
+    LEFT JOIN "IngredientTags" it2 ON i2."ingredientDescription" = it2."ingredientDescription"
+    WHERE i2."pizzaName" = p."name"
+    AND (it2."tagDescription" IS NULL OR it2."tagDescription" NOT IN ('Vegetarian', 'Vegan'))
+)
+ORDER BY p."name" ASC;
+
+-- Pizzas without soy
+SELECT DISTINCT p."name" AS "Pizzas without soy" FROM "Pizzas" p
+JOIN "PizzaIngredients" i ON p."name" = i."pizzaName"
+LEFT JOIN "IngredientAllergens" it ON i."ingredientDescription" = it."ingredientDescription"
+WHERE NOT EXISTS (
+    SELECT 1 FROM "PizzaIngredients" i2
+    LEFT JOIN "IngredientAllergens" it2 ON i2."ingredientDescription" = it2."ingredientDescription"
+    WHERE i2."pizzaName" = p."name"
+    AND (it2."allergenDescription" IN ('Soy'))
+)
+ORDER BY p."name" ASC;
