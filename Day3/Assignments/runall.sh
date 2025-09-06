@@ -5,13 +5,26 @@ if !(podman container exists postgres-db && [ "$(podman inspect -f {{.State.Stat
     podman-compose -f ~/dev/github.com/ucldk/databases/postgres-compose.yml up -d
 fi
 
+# Copy .sql files to container
 podman cp Test_data postgres-db:/tmp/
 podman cp 0-show-db-contents.sql postgres-db:/tmp/
 podman cp 1-subqueries.sql postgres-db:/tmp/
+podman cp 2-views.sql postgres-db:/tmp/
 
+# Recreate database
 podman exec postgres-db dropdb --force --if-exists day3_assignments
 podman exec postgres-db psql -d postgres -c "CREATE DATABASE day3_assignments"
+
+# Initialize database
 podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f dfu-03-education-db.sql
+
+# First assignment
 podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f extra-data.sql
 podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
 podman exec -w /tmp postgres-db psql -d day3_assignments -f 1-subqueries.sql
+
+# Second assignment
+echo "Resetting database (removing the extra data for the first assignment)"
+podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f dfu-03-education-db.sql
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 2-views.sql

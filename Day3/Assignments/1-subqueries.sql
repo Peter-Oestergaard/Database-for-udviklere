@@ -1,4 +1,4 @@
--- 01, Scalar Subquery 
+-- 01, Scalar Subquery
 SELECT
     "name" AS "Studerende",
     (SELECT AVG("grade") FROM "Exams") AS "Karaktergennemsnit for alle"
