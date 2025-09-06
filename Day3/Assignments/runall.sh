@@ -11,25 +11,42 @@ podman cp 0-show-db-contents.sql postgres-db:/tmp/
 podman cp 1-subqueries.sql postgres-db:/tmp/
 podman cp 2-views.sql postgres-db:/tmp/
 podman cp 3-functions.sql postgres-db:/tmp/
+podman cp 4-stored-procedures.sql postgres-db:/tmp/
 
 # Recreate database
-podman exec postgres-db dropdb --force --if-exists day3_assignments
-podman exec postgres-db psql -d postgres -c "CREATE DATABASE day3_assignments"
+recreate_db() {
+    podman exec postgres-db dropdb --force --if-exists day3_assignments
+    podman exec postgres-db psql -d postgres -c "CREATE DATABASE day3_assignments" -q
+    # Initialize database
+    podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f dfu-03-education-db.sql &>/dev/null
+}
+recreate_db
 
-# Initialize database
-podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f dfu-03-education-db.sql
-
-# First assignment
-podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f extra-data.sql
-podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
+echo "################"
+echo "First assignment"
+echo "################"
+podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f extra-data.sql -q
+#podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
 podman exec -w /tmp postgres-db psql -d day3_assignments -f 1-subqueries.sql
 
-# Second assignment
+echo "#################"
+echo "Second assignment"
+echo "#################"
 echo "Resetting database (removing the extra data for the first assignment)"
-podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f dfu-03-education-db.sql
-podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
-podman exec -w /tmp postgres-db psql -d day3_assignments -f 2-views.sql
+recreate_db
+#podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 2-views.sql -q
 
-# Third assignment
+echo "################"
+echo "Third assignment"
+echo "################"
+#podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 3-functions.sql -q
+
+echo "#################"
+echo "Fourth assignment"
+echo "#################"
+echo "Resetting database (removing the updates from the third assignment)"
+recreate_db
 podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
-podman exec -w /tmp postgres-db psql -d day3_assignments -f 3-functions.sql
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 4-stored-procedures.sql -q
