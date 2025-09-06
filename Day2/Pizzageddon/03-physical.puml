@@ -1,0 +1,138 @@
+@startuml Pizzageddon_physical
+left to right direction
+
+entity Tags {
+    description: VARCHAR <pk>
+}
+
+entity CrustTags {
+    size: VARCHAR <pk><fk>
+    type: VARCHAR <pk><fk>
+    tagDescription: VARCHAR <pk><fk>
+}
+
+entity CrustSizes {
+    size: VARCHAR <pk>
+}
+
+entity IngredientTags {
+    ingredientDescription: VARCHAR <pk><fk>
+    tagDescription: VARCHAR <pk><fk>
+}
+
+entity Crusts {
+    size: VARCHAR <pk><fk>
+    type: VARCHAR <pk><fk>
+    --
+    price: NUMERIC
+    leadTime: INTERVAL
+}
+
+entity CrustTypes {
+    type: VARCHAR <pk>
+}
+
+entity PizzaOrders {
+    id: INTEGER <pk>
+}
+
+entity PizzaIngredients {
+    pizzaName: VARCHAR <pk><fk>
+    ingredientDescription: VARCHAR <pk><fk>
+}
+
+entity Requests {
+    orderId: INTEGER <pk><fk>
+    requestId: INTEGER <pk>
+    --
+    pizzaName: VARCHAR <fk>
+    crustSize: VARCHAR <fk>
+    crustType: VARCHAR <fk>
+    quantity: INTEGER
+}
+
+entity RequestAddOns {
+    orderId: INTEGER <pk><fk>
+    requestId: INTEGER <pk><fk>
+    addOnIngredientDescription: VARCHAR <pk><fk>
+    --
+    quantity: INTEGER
+}
+
+entity ExcludeIngredients {
+    orderId: INTEGER <pk><fk>
+    requestId: INTEGER <pk><fk>
+    ingredientDescription: VARCHAR <pk><fk>
+}
+
+entity Pizzas {
+    name: VARCHAR <pk>
+    --
+    surcharge: NUMERIC
+    leadTimeExtension: INTERVAL
+}
+
+entity CrustAllergens {
+    crustType: VARCHAR <pk><fk>
+    allergenDescription: VARCHAR <pk><fk>
+}
+
+entity AddOnIngredients {
+    description: VARCHAR <pk><fk>
+    --
+    surcharge: NUMERIC
+    leadTimeExtension: INTERVAL
+}
+
+entity Ingredients {
+    description: VARCHAR <pk>
+}
+
+entity IngredientAllergens {
+    ingredientDescription: VARCHAR <pk><fk>
+    allergenDescription: VARCHAR <pk><fk>
+}
+
+entity Allergens {
+    description: VARCHAR <pk>
+}
+
+Tags::description "1"--"0..*" IngredientTags::tagDescription
+Tags::description "1"--"0..*" CrustTags::tagDescription
+
+CrustSizes::size "1"--"0..*" Crusts::size
+
+CrustTags::size "0..*"--"1" Crusts::size
+CrustTags::type "0..*"--"1" Crusts::type
+
+PizzaOrders::id "1"--"0..*" Requests::orderId
+
+Crusts::size "1"--"0..*" Requests::crustSize
+Crusts::type "1"--"0..*" Requests::crustType
+Crusts::type "0..*"--"1" CrustTypes::type
+
+CrustTypes::type "1"--"0..*" CrustAllergens::crustType
+
+Requests::orderId "1"--"0..*" ExcludeIngredients::orderId
+Requests::requestId "1"--"0.**" ExcludeIngredients::requestId
+Requests::orderId "1"--"0..*" RequestAddOns::orderId
+Requests::requestId "1"--"0..*" RequestAddOns::requestId
+Requests::pizzaName "0..*"--"1" Pizzas::name
+
+PizzaIngredients::pizzaName "0..*"--"1" Pizzas::name
+PizzaIngredients::ingredientDescription "0..*"--"1" Ingredients::description
+
+ExcludeIngredients::ingredientDescription "0..*"--"1" Ingredients::description
+
+RequestAddOns::addOnIngredientDescription "0..*"--"1" AddOnIngredients::description
+
+AddOnIngredients::description "0..*"--"1" Ingredients::description
+
+IngredientTags::ingredientDescription "0..*"--"1" Ingredients::description
+
+Ingredients::description "1"--"0..*" IngredientAllergens::ingredientDescription
+
+CrustAllergens::allergenDescription "0..*"--"1" Allergens::description
+
+IngredientAllergens::allergenDescription "0..*"--"1" Allergens::description
+@enduml

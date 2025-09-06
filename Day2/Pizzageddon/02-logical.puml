@@ -1,0 +1,130 @@
+@startchen Pizzageddon_logical
+
+entity Order {
+    Id <<key>>
+}
+
+entity OrderLine <<weak>> {
+    LineNumber
+    Quantity
+}
+
+relationship Contains <<identifying>> {
+
+}
+
+Order =1= Contains
+Contains =N= OrderLine
+
+relationship Requests {
+
+}
+
+relationship RequestsAddOns {
+    Quantity
+}
+
+relationship Excludes {
+
+}
+
+entity CrustType {
+    Type <<key>>
+}
+
+entity CrustSize {
+    Size <<key>>
+}
+
+entity Crust {
+    Price
+    LeadTime
+}
+
+relationship CrustHasSize {
+
+}
+
+relationship CrustIsOfType {
+
+}
+
+Crust =N= CrustHasSize
+CrustHasSize -1- CrustSize
+
+Crust =N= CrustIsOfType
+CrustIsOfType -1- CrustType
+
+entity Pizza {
+    Name <<key>>
+    Surcharge
+    LeadTimeExtension
+}
+
+entity Ingredient {
+    Description <<key>>
+}
+
+entity AddOnIngredient {
+    Surcharge
+    LeadTimeExtension
+}
+
+OrderLine =N= Requests
+Requests -1- Crust
+Requests -1- Pizza
+
+OrderLine -N- RequestsAddOns
+RequestsAddOns -N- AddOnIngredient
+
+OrderLine -N- Excludes
+Excludes -N- Ingredient
+
+entity Tag {
+    Description <<key>>
+}
+
+entity Allergen {
+    Description <<key>>
+}
+
+relationship CrustHas {
+
+}
+
+Crust -N- CrustHas
+CrustHas -N- Tag
+
+relationship IngredientHas {
+
+}
+
+Ingredient -N- IngredientHas
+IngredientHas -N- Tag
+
+relationship IsMadeWith {
+
+}
+
+Pizza =N= IsMadeWith
+IsMadeWith -N- Ingredient
+
+
+relationship CrustTypeMayContain {
+
+}
+
+CrustType -N- CrustTypeMayContain
+CrustTypeMayContain -N- Allergen
+
+relationship IngredientMayContain {
+
+}
+
+Ingredient -N- IngredientMayContain
+IngredientMayContain -N- Allergen
+
+Ingredient ->- AddOnIngredient
+
+
+@endchen

@@ -1,0 +1,7 @@
+INSERT INTO "Exams" ("studentid", "programid", "grade") VALUES
+(1, 2, -3),
+(2, 1, -3),
+(3, 4, -3),
+(4, 3, -3),
+(5, 5, -3),
+(6, 2, -3);
