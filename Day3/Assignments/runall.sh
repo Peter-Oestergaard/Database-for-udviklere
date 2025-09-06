@@ -10,6 +10,7 @@ podman cp Test_data postgres-db:/tmp/
 podman cp 0-show-db-contents.sql postgres-db:/tmp/
 podman cp 1-subqueries.sql postgres-db:/tmp/
 podman cp 2-views.sql postgres-db:/tmp/
+podman cp 3-functions.sql postgres-db:/tmp/
 
 # Recreate database
 podman exec postgres-db dropdb --force --if-exists day3_assignments
@@ -28,3 +29,7 @@ echo "Resetting database (removing the extra data for the first assignment)"
 podman exec -w /tmp/Test_data postgres-db psql -d day3_assignments -f dfu-03-education-db.sql
 podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
 podman exec -w /tmp postgres-db psql -d day3_assignments -f 2-views.sql
+
+# Third assignment
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 0-show-db-contents.sql
+podman exec -w /tmp postgres-db psql -d day3_assignments -f 3-functions.sql
