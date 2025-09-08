@@ -98,7 +98,7 @@ EXCEPTION
     WHEN foreign_key_violation THEN
         RAISE NOTICE 'A student must be known in order to be enrolled in a course. Offending studentId: %', studentId;
     WHEN OTHERS THEN
-        RAISE NOTICE 'Something really bad just happened. I''m really sorry. %', SQLERRM;  
+        RAISE NOTICE 'Something really bad just happened. I''m really sorry. %', SQLERRM;
 END;
 $$;
 

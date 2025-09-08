@@ -1,5 +1,13 @@
 # Database for udviklere
 
+## Assignments
+### Day 3
+[Go to folder](/Day3/)
+
+### Day 2
+[Go to folder](/Day2/)
+
+## Notes
 Run `compose.yaml`:
 
 ```shell
@@ -13,8 +21,6 @@ podman-compose up -d
 [PlantUML](http://localhost:8100)
 
 Only PlantUML supports Chen style ER in VSCode
-
-
 
 ## Slides
 Dag 1: https://ucl.kjc.dk/slides/dfu-01/#/
