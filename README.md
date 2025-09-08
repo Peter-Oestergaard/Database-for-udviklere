@@ -5,7 +5,7 @@
 [Go to folder](/Day3/)
 
 ### Day 2
-[Go to folder](/Day2/)
+[Go to folder](/Day2/Pizzageddon/)
 
 ## Notes
 Run `compose.yaml`:

@@ -1,4 +1,5 @@
-[KJCL, 02 ER Diagrammer og Normalisering](https://ucl.itslearning.com/plans/courses/22203/plan/723310)
+# Pizzageddon
 
-WHERE ARE THE SLIDES?
-- [Normalisering og Databasedesign – Pizzageddon opgaver](https://ucl.kjc.dk/dfu/dfu-exercise-pizzageddon.html)
+## ER diagram
+
+![Entity-relation diagram of the Pizzageddon database](../../PlantUML_Image_Exports/Day2/Pizzageddon/03-physical/Pizzageddon_physical.png)
