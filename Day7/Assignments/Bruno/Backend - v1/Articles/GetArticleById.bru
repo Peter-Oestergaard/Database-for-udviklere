@@ -1,0 +1,15 @@
+meta {
+  name: GetArticleById
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/Articles/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 2
+}

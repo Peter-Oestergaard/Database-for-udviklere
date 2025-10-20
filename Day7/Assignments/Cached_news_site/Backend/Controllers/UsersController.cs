@@ -4,22 +4,16 @@ namespace Backend.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ArticlesController : ControllerBase
+public class UsersController : Controller
 {
     private static readonly string[] Summaries =
     [
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"
     ];
-
-    [HttpGet(Name = "GetArticles")]
-    public IEnumerable<string> Get()
-    {
-        return Summaries;
-    }
-
-    [HttpGet("{id:int}", Name = "GetArticleById")]
+    
+    [HttpGet("{id:int}", Name = "GetUserById")]
     public string Get(int id)
     {
-        return Summaries[id];
+        return Summaries.First();
     }
 }
