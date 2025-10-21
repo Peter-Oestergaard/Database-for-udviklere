@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: docker.io/postgres:17-alpine
+    restart: unless-stopped
+    #container_name: postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - 5432:5432
+    #volumes:
+    #  - ./volumes/postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=newssite
+
+  adminer:
+    image: docker.io/adminer
+    restart: unless-stopped
+    #container_name: postgres-adminer
+    depends_on:
+      - db
+    ports:
+      - 8083:8080
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+
+  pgadmin:
+    image: docker.io/dpage/pgadmin4:2025-10-14-1
+    restart: unless-stopped
+    #container_name: postgres-pgadmin
+    depends_on:
+      - db
+    ports:
+      - 8084:80
+    #volumes:
+    #  - ./volumes/pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=root@local.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+
+  redis:
+    image: docker.io/redis:7-alpine
+    restart: unless-stopped
+    #container_name: redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - 6379:6379
+    #volumes:
+    #  - ./data/redis-data:/data
+    environment:
+      - REDIS_PASSWORD=123
+      - REDIS_PORT=6379
+
+  redisinsight:
+    image: docker.io/redis/redisinsight
+    restart: unless-stopped
+    #container_name: redis-insight
+    depends_on:
+      - redis
+    ports:
+      - 8085:5540
+    environment:
+      - RI_REDIS_HOST=redis
+      - RI_REDIS_PORT=6379
