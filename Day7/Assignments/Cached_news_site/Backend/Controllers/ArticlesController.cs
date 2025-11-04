@@ -1,25 +1,34 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ArticlesController : ControllerBase
+public class ArticlesController(NewssiteDbContext db) : ControllerBase
 {
-    private static readonly string[] Summaries =
-    [
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"
-    ];
-
     [HttpGet(Name = "GetArticles")]
-    public IEnumerable<string> Get()
+    public async Task<ActionResult<IEnumerable<Article>>> Get()
     {
-        return Summaries;
+        List<Article> articles = await db.Articles.ToListAsync();
+
+        return Ok(articles);
     }
 
     [HttpGet("{id:int}", Name = "GetArticleById")]
-    public string Get(int id)
+    public async Task<ActionResult<Article>> Get(int id)
     {
-        return Summaries[id];
+        Article? article = await db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+
+        if (article is null)
+        {
+            return NotFound();
+        }
+
+        List<Comment> comments = await db.Comments.Where(c => article.Id == c.ArticleId).ToListAsync();
+
+        return Ok(
+            new { article, comments }
+        );
     }
 }
