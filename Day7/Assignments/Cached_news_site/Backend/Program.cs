@@ -1,4 +1,5 @@
 using Backend;
+using Backend.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,9 @@ builder.Services.AddDbContext<NewssiteDbContext>(options =>
 {
     options.UseNpgsql("Host=localhost;Port=5432;Database=newssite;Username=root;Password=root");
 });
+builder.Services.AddScoped<ArticleRepository>();
+builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

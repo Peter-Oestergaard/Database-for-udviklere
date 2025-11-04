@@ -1,16 +1,16 @@
+using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UsersController(NewssiteDbContext db) : Controller
+public class UsersController(UserRepository userssDb) : Controller
 {
     [HttpGet("{id:int}", Name = "GetUserById")]
-    public async Task<ActionResult<IEnumerable<User>>> Get(int id)
+    public ActionResult<IEnumerable<User>> Get(int id)
     {
-        List<User> users = await db.Users.ToListAsync();
+        List<User> users = userssDb.Users;
 
         return Ok(users);
     }
