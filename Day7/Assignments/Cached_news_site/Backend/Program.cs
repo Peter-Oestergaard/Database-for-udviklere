@@ -1,6 +1,7 @@
 using Backend;
 using Backend.Repositories;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<NewssiteDbContext>(options =>
 builder.Services.AddScoped<ArticleRepository>();
 builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<UserRepository>();
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect("localhost:6379"));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
