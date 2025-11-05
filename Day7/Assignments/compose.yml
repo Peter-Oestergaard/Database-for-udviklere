@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     #container_name: postgres-adminer
     depends_on:
-      - db
+      - postgres
     ports:
       - 8083:8080
     environment:
@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     #container_name: postgres-pgadmin
     depends_on:
-      - db
+      - postgres
     ports:
       - 8084:80
     #volumes:

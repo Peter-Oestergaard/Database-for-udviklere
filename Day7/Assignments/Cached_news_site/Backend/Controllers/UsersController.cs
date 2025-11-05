@@ -10,8 +10,8 @@ public class UsersController(UserRepository userssDb) : Controller
     [HttpGet("{id:int}", Name = "GetUserById")]
     public ActionResult<IEnumerable<User>> Get(int id)
     {
-        List<User> users = userssDb.Users;
+        User? user = userssDb.Users.FirstOrDefault(u => u.Id == id);
 
-        return Ok(users);
+        return Ok(user);
     }
 }

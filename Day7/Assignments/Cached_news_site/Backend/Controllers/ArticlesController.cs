@@ -10,9 +10,7 @@ public class ArticlesController(ArticleRepository articlesDb, CommentRepository 
     [HttpGet(Name = "GetArticles")]
     public ActionResult<IEnumerable<Article>> Get()
     {
-        List<Article> articles = articlesDb.Articles;
-
-        return Ok(articles);
+        return Ok(articlesDb.Articles);
     }
 
     [HttpGet("{id:int}", Name = "GetArticleById")]
@@ -25,7 +23,7 @@ public class ArticlesController(ArticleRepository articlesDb, CommentRepository 
             return NotFound();
         }
 
-        IEnumerable<Comment> comments = commentsDb.Comments.Where(c => article.Id == c.ArticleId);
+        IEnumerable<Comment> comments = commentsDb.CommentsForArticle(id: article.Id);
 
         return Ok(
             new { article, comments }

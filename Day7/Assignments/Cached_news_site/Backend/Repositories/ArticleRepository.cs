@@ -9,7 +9,7 @@ public class ArticleRepository(NewssiteDbContext db, IConnectionMultiplexer redi
     private const string Articleskey = "articles";
     private readonly IDatabase _cache = redis.GetDatabase();
 
-    public List<Article> Articles
+    public IQueryable<Article> Articles
     {
         get
         {
@@ -19,13 +19,13 @@ public class ArticleRepository(NewssiteDbContext db, IConnectionMultiplexer redi
                 List<Article>? cachedArticles = JsonSerializer.Deserialize<List<Article>>(articlesJson!);
                 if (cachedArticles is not null && cachedArticles.Count > 0)
                 {
-                    return cachedArticles;
+                    return cachedArticles.AsQueryable();
                 }
             }
 
-            List<Article> articles = db.Articles.ToList();
+            IQueryable<Article> articles = db.Articles.AsQueryable();
 
-            if (articles.Count > 0)
+            if (articles.Any())
             {
                 _cache.StringSet(Articleskey, JsonSerializer.Serialize(articles), TimeSpan.FromSeconds(10));
             }
