@@ -16,7 +16,7 @@ public class ArticlesController(ArticleRepository articlesDb, CommentRepository 
     [HttpGet("{id:int}", Name = "GetArticleById")]
     public ActionResult<Article> Get(int id)
     {
-        Article? article = articlesDb.Articles.FirstOrDefault(a => a.Id == id);
+        Article? article = articlesDb.ArticleById(id);
 
         if (article is null)
         {

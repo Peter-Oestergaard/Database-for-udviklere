@@ -1,12 +1,17 @@
 using System.Text.Json;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
 namespace Backend.Repositories;
 
-public class CommentRepository(NewssiteDbContext db, IConnectionMultiplexer redis)
+public class CommentRepository(
+    NewssiteDbContext db,
+    IConnectionMultiplexer redis,
+    IOptions<CachingSettings> cachingSettings)
 {
     private const string Commentskey = "comments";
     private readonly IDatabase _cache = redis.GetDatabase();
+    private readonly CachingSettings _cachingSettings = cachingSettings.Value;
 
     // public IQueryable<Comment> Comments
     // {
@@ -19,52 +24,60 @@ public class CommentRepository(NewssiteDbContext db, IConnectionMultiplexer redi
 
     public IEnumerable<Comment> CommentsForArticle(int id)
     {
-        RedisValue[] commentIds = _cache.ListRange($"article:{id}:comments");
-
-        try
+        if (!_cachingSettings.Disable)
         {
+            RedisValue[] commentIds = _cache.ListRange($"article:{id}:comments");
 
-            if (commentIds.Length != 0)
+            try
             {
-                List<Comment> cachedComments = [];
-                foreach (RedisValue commentId in commentIds)
+                if (commentIds.Length != 0)
                 {
-                    RedisValue commentJson = _cache.StringGet($"comment:{commentId}");
-                    if (commentJson != RedisValue.Null)
+                    List<Comment> cachedComments = [];
+                    foreach (RedisValue commentId in commentIds)
                     {
-                        Comment? comment = JsonSerializer.Deserialize<Comment>(commentJson!);
-                        if (comment is not null)
+                        RedisValue commentJson = _cache.StringGet($"comment:{commentId}");
+                        if (commentJson != RedisValue.Null)
                         {
-                            cachedComments.Add(comment);
+                            Comment? comment = JsonSerializer.Deserialize<Comment>(commentJson!);
+                            if (comment is not null)
+                            {
+                                cachedComments.Add(comment);
+                            }
+                            else
+                            {
+                                throw new Exception();
+                            }
                         }
                         else
                         {
                             throw new Exception();
                         }
                     }
-                    else
-                    {
-                        throw new Exception();
-                    }
-                }
 
-                return cachedComments;
+                    return cachedComments;
+                }
             }
-        }
-        catch (Exception)
-        {
-            // Whatever went wrong we clear the cache and continue with the database instead
-            _cache.KeyDelete($"article:{id}:comments");
+            catch (Exception)
+            {
+                // Whatever went wrong we clear the cache and continue with the database instead
+                _cache.KeyDelete($"article:{id}:comments");
+            }
         }
 
         IQueryable<Comment> comments = db.Comments.Where(c => c.ArticleId == id);
-        
-        foreach (Comment comment in comments)
+
+        if (!_cachingSettings.Disable)
         {
-            _cache.ListRightPush($"article:{id}:comments", comment.Id);
-            _cache.StringSet($"comment:{comment.Id}", JsonSerializer.Serialize(comment), TimeSpan.FromSeconds(10));
+            foreach (Comment comment in comments)
+            {
+                _cache.ListRightPush($"article:{id}:comments", comment.Id);
+                _cache.StringSet($"comment:{comment.Id}", JsonSerializer.Serialize(comment),
+                    _cachingSettings.TimeoutSeconds == 0
+                        ? null
+                        : TimeSpan.FromSeconds(_cachingSettings.TimeoutSeconds));
+            }
         }
-        
+
         return comments;
     }
 }

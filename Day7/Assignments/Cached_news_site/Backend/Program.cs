@@ -15,6 +15,7 @@ builder.Services.AddScoped<CommentRepository>();
 builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect("localhost:6379"));
+builder.Services.Configure<CachingSettings>(builder.Configuration.GetSection("Caching"));
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
