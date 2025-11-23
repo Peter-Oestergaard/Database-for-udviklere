@@ -1,4 +1,3 @@
-
 [KJCL, 03 Advanced Queries](https://ucl.itslearning.com/plans/courses/22203/plan/724373)
 
 [Slides](https://ucl.kjc.dk/slides/dfu-03-adv-queries/)

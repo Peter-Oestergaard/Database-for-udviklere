@@ -27,3 +27,7 @@ Dag 1: https://ucl.kjc.dk/slides/dfu-01/#/
 
 ## Links
 [PostgreSQL data types](https://www.postgresql.org/docs/current/datatype.html)
+
+## Exam questions
+
+[Right here](https://ucl.kjc.dk/dfu/dfu-exams-questions-2025.html)
