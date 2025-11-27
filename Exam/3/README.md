@@ -7,3 +7,7 @@ Brug gerne eksempler fra egne projekter.
 ---
 
 Emne gennemgået [KJCL, 06 Backup & replication](https://ucl.itslearning.com/plans/courses/22203/plan/724376)
+
+---
+
+Kan man snakke lidt om seedning og hvordan vi bruger det?

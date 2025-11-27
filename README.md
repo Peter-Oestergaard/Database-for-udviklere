@@ -26,6 +26,7 @@ Only PlantUML supports Chen style ER in VSCode
 Dag 1: https://ucl.kjc.dk/slides/dfu-01/#/
 
 ## Links
+[Recap](https://ucl.kjc.dk/dfu/dfu-2025-recap.html)
 [PostgreSQL data types](https://www.postgresql.org/docs/current/datatype.html)
 
 ## Exam questions

@@ -7,3 +7,14 @@ Inkludér evt. eksempler fra egne projekter.
 ---
 
 Emne gennemgået [KJCL, 06 Backup & replication](https://ucl.itslearning.com/plans/courses/22203/plan/724376)
+
+---
+
+source source
+source replica
+
+Sharding mv. Alle måder hvor data duplikeres og flyttes
+
+
+
+sli,slo,sla

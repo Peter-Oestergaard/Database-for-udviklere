@@ -7,3 +7,7 @@ Understøt dine pointer med eksempler fra egne projekter.
 ---
 
 Emne gennemgået [KJCL, 03 Advanced Queries](https://ucl.itslearning.com/plans/courses/22203/plan/724373)
+
+---
+
+En stored procedure gemmes på serveren - hvad er den anden, og forskellen?

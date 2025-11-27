@@ -9,3 +9,5 @@ WHERE ARE THE SLIDES?
 - [1NF Exercises](http://ucl.kjc.dk/dfu/dfu-02-exercises-1nf.html)
 - [2NF Exercises](http://ucl.kjc.dk/dfu/dfu-02-exercises-2nf.html)
 - [Pizzageddon exercise](https://ucl.kjc.dk/dfu/dfu-exercise-pizzageddon.html)
+
+http://ucl.kjc.dk/slides/wpd-02-data-modellering

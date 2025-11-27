@@ -7,3 +7,9 @@ Brug gerne eksempler fra egne projekter.
 ---
 
 Emne gennemgået [KJCL, 03 Advanced Queries](https://ucl.itslearning.com/plans/courses/22203/plan/724373)
+
+---
+
+Isolation?
+
+Eksempler på de forskellige isolation levels.
